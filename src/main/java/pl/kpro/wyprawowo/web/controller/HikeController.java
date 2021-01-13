@@ -1,6 +1,7 @@
 package pl.kpro.wyprawowo.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,6 +14,8 @@ import pl.kpro.wyprawowo.data.service.HikeService;
 import pl.kpro.wyprawowo.data.service.UserService;
 import pl.kpro.wyprawowo.web.payload.request.AddHikeRequest;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,10 +37,12 @@ public class HikeController
     }
 
     @GetMapping
-    public ResponseEntity<List<Hike>> getHikes(@AuthenticationPrincipal UserDetails userDetails)
+    public ResponseEntity<List<Hike>> getHikes(@RequestParam(value="date") @DateTimeFormat(pattern="yyyy-MM-dd") Optional<LocalDate> date,
+            @AuthenticationPrincipal UserDetails userDetails)
     {
         String username = userDetails.getUsername();
-        return new ResponseEntity<>(hikeService.getHikesOf(userDetails),HttpStatus.ACCEPTED);
+        return date.map(value -> new ResponseEntity<>(hikeService.getHikesOf(userDetails, value), HttpStatus.ACCEPTED))
+                   .orElseGet(() -> new ResponseEntity<>(hikeService.getHikesOf(userDetails), HttpStatus.ACCEPTED));
     }
 
     @GetMapping("/{hikeId}")

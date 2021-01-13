@@ -12,10 +12,12 @@ import pl.kpro.wyprawowo.data.repository.ImageRepository;
 import pl.kpro.wyprawowo.data.repository.VideoRepository;
 import pl.kpro.wyprawowo.web.payload.request.AddHikeRequest;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Krzysztof 'impune_pl' Prorok <Krzysztof1397@gmail.com>
@@ -62,5 +64,11 @@ public class HikeService
     public List<Hike> getHikesOf(UserDetails userDetails)
     {
         return userService.getUserByUsername(userDetails.getUsername()).getHikes();
+    }
+
+    public List<Hike> getHikesOf(UserDetails userDetails, LocalDate date)
+    {
+        return userService.getUserByUsername(userDetails.getUsername()).getHikes().stream().filter((Hike h)->h.getStartDate().equals(date)).collect(
+                Collectors.toList());
     }
 }

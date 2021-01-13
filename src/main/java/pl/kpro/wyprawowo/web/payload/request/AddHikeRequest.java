@@ -3,6 +3,7 @@ package pl.kpro.wyprawowo.web.payload.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public class AddHikeRequest
 {
     private Integer lengthInKm;
 
-    private Date StartDate;
+    private LocalDate StartDate;
 
     private String startCoordinates;
 

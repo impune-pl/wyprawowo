@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class Hike
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date StartDate;
+    private LocalDate StartDate;
 
     private Integer lengthInKm;
 
@@ -43,7 +44,7 @@ public class Hike
     @OneToOne
     private Video video;
 
-    public Hike(Date startDate, Integer lengthInKm, String startCoordinates, String endCoordinates, Video video)
+    public Hike(LocalDate startDate, Integer lengthInKm, String startCoordinates, String endCoordinates, Video video)
     {
         StartDate = startDate;
         this.lengthInKm = lengthInKm;
