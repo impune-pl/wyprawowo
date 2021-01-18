@@ -23,12 +23,14 @@ in `src/main/resources/application.properties`
 To compile the front end:
 ```
 cd ./frontend_src
+npm install
 yarn build
 ```
 
-To compile and run application:
+To compile and run back-end:
 ```
 mvn spring-boot:start
 ```
 
 This app uses port 8081 by default.
+Back end takes care of serving the front end and creating database structure (code-first approach).
