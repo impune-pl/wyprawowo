@@ -22,7 +22,7 @@ in `src/main/resources/application.properties`
 
 To compile the front end:
 ```
-cd ./frontend_src
+cd ./frontend_sources
 npm install
 yarn build
 ```
